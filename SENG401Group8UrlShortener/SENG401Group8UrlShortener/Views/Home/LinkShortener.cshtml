@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+
+<body>
+    @using (Html.BeginForm("LinkShortener", "Home", FormMethod.Post))
+    {
+        <h3>Enter URL to shorten</h3>
+        <input name="longURL"
+               type="url"
+               style="width:400px; max-width:400px;">
+        <input id="urlButton"
+               type="submit"
+               value="Get your shortened URLs here!">
+    }
+    @if ((string)ViewData["shortURL"] != null)
+    {
+        <h3>Shortened URL</h3>
+        <p>@ViewData["shortURL"]</p>
+    }
+</body>
+</html>
