@@ -9,3 +9,14 @@
 /Users/nate/Desktop/seng401a3/seng401a3/obj/Debug/netcoreapp2.0/seng401a3.AssemblyInfo.cs
 /Users/nate/Desktop/seng401a3/seng401a3/obj/Debug/netcoreapp2.0/seng401a3.dll
 /Users/nate/Desktop/seng401a3/seng401a3/obj/Debug/netcoreapp2.0/seng401a3.pdb
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\bin\Debug\netcoreapp2.0\seng401a3.deps.json
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\bin\Debug\netcoreapp2.0\seng401a3.runtimeconfig.json
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\bin\Debug\netcoreapp2.0\seng401a3.runtimeconfig.dev.json
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\bin\Debug\netcoreapp2.0\seng401a3.dll
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\bin\Debug\netcoreapp2.0\seng401a3.pdb
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\obj\Debug\netcoreapp2.0\seng401a3.csprojResolveAssemblyReference.cache
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\obj\Debug\netcoreapp2.0\seng401a3.csproj.CoreCompileInputs.cache
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\obj\Debug\netcoreapp2.0\seng401a3.AssemblyInfoInputs.cache
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\obj\Debug\netcoreapp2.0\seng401a3.AssemblyInfo.cs
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\obj\Debug\netcoreapp2.0\seng401a3.dll
+C:\Users\Nate\Desktop\SENG401\seng401a3\seng401a3\obj\Debug\netcoreapp2.0\seng401a3.pdb

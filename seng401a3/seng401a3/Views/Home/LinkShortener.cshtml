@@ -13,6 +13,15 @@
     @if ((string)ViewData["shortURL"] != null)
     {
         <h3>Shortened URL</h3>
-        <p>@ViewData["shortURL"]</p>
+        <!--- <p id="url">@ViewData["shortURL"]</p> -->
+        <input id="url" type="url" value="@ViewData["shortURL"]" style="width:400px; max-width:400px; border:0" readonly/>
+        <button onclick="copyButton()">Copy To Clipboard</button>
+        <script>
+            function copyButton() {
+                var copyText = document.getElementById("url");
+                copyText.select();
+                document.execCommand("Copy");
+            }
+        </script>
     }
 </body>

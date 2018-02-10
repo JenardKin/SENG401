@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
+using System.Net;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace seng401a3.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult LinkShortener(string longURL)
+        public IActionResult LinkShortener(string longURL = null)
         {
             string shortURL = longURL;
             ViewData["Title"] = "Link Shortener";
@@ -22,11 +22,27 @@ namespace seng401a3.Controllers
                 int value = rnd.Next(0, 100);
                 //Algorithm for shortended link
                 string encoding = Shortener.GetShortEncoding(value);
-                shortURL = "Encoding of PK: " + value.ToString() + " equals: " + encoding;
+                int decoding = Shortener.GetLongDecoding(encoding);
+                string urlHost = Request.Host.ToString();
+                shortURL = urlHost + "/Home/Go/" + encoding;
             }
             ViewData["shortURL"] = shortURL;
 
             return View();
+        }
+        public void Go(string id = null)
+        {
+            if (id != null)
+            {
+                int decoding = Shortener.GetLongDecoding(id);
+                //Ideally, with the above ID we will squery the DB and get the respective url and redirect to that page
+                Response.Redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+            }
+            else
+            {
+                //Otherwise, redirect back to our homepage
+                Response.Redirect(Request.Host.ToString());
+            }
         }
         public IActionResult Error()
         {

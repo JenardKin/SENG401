@@ -174,7 +174,7 @@ namespace LinkShortener.Models.Database
                 mutex.ReleaseMutex();
                 return false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 mutex.ReleaseMutex();
                 return false;
