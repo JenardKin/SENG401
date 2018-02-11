@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Web.Mvc;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 using SENG401Group8UrlShortener.Models;
+using LinkShortener.Models.Database;
 
 namespace SENG401Group8UrlShortener.Controllers
 {
@@ -13,27 +13,39 @@ namespace SENG401Group8UrlShortener.Controllers
 
         public ActionResult LinkShortener(string longURL)
         {
+            var dbInstance = LinkDatabase.getInstance();
+            dbInstance.createDB();
+            
             string shortURL = longURL;
             ViewData["Title"] = "Link Shortener";
             //If string from post was null, then this field isn't displayed
             if (longURL != null)
             {
                 //Randomly choose and int... This will actually be the PK value in the DB
-                Random rnd = new Random();
-                int value = rnd.Next(0, 100);
-                //Algorithm for shortended link
-                string encoding = Shortener.GetShortEncoding(value);
-                shortURL = "Encoding of PK: " + value.ToString() + " equals: " + encoding;
+                string shortUrl_iD = dbInstance.saveLongURL(longURL);
+                string urlHost = HttpContext.Request.Url.Host;
+                shortURL = urlHost + "/Home/Go/" + shortUrl_iD;
             }
             ViewData["shortURL"] = shortURL;
 
             return View();
         }
 
-        public ActionResult Error()
+        public void Go(string id = null)
         {
-            //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-            return View();
+            var dbInstance = LinkDatabase.getInstance();
+
+            if (id != null)
+            {
+                string origUrl = dbInstance.getLongUrl(id);
+                //Ideally, with the above ID we will squery the DB and get the respective url and redirect to that page
+                Response.Redirect(origUrl);
+            }
+            else
+            {
+                //Otherwise, redirect back to our homepage
+                Response.Redirect(HttpContext.Request.Url.Host);
+            }
         }
 
     }

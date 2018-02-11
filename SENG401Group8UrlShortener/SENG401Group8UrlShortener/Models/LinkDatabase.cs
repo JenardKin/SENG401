@@ -39,7 +39,10 @@ namespace LinkShortener.Models.Database
 
                 if(reader.Read() == true)
                 {
-                    return reader.GetString("original");
+                    string originalUrl = reader.GetString("original");
+                    reader.Close();
+                    closeConnection();
+                    return originalUrl;
                 }
                 else
                 {
