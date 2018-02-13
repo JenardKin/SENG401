@@ -1,4 +1,5 @@
 ﻿<body>
+    <!--Form to call the linkshortener action in the home controller with the value in the input field longURL-->
     @using (Html.BeginForm("LinkShortener", "Home", FormMethod.Post))
     {
         <h3>Enter URL to shorten</h3>
@@ -9,12 +10,14 @@
                type="submit"
                value="Get your shortened URLs here!">
     }
+    <!--Check to see if a short url was provided when rendering this view-->
     @if ((string)ViewBag.shortURL != null)
     {
+        <!--Display for the shortened url-->
         <h3>Shortened URL</h3>
-        <!--- <p id="url">@ViewBag.shortURL</p> -->
         <input id="url" type="url" value="@ViewBag.shortURL" style="width:400px; max-width:400px; border:0" readonly />
         <button onclick="copyButton()">Copy To Clipboard</button>
+        <!--Embedded JS to act as a copy to clipboard button-->
         <script>
             function copyButton() {
                 var copyText = document.getElementById("url");
