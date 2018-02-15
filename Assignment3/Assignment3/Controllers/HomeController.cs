@@ -9,7 +9,7 @@ namespace Assignment3.Controllers
     {
         //Defualt action of home controller is linkshortener rather than index (changed in route config)
         //Action takes an optional parameter (longURL) - The url to be shortened
-        public ActionResult LinkShortener(string longURL)
+        public ActionResult LinkShortener(string longURL = null)
         {   
             //Save the short url as the long url (currently)
             string shortURL = longURL;
@@ -27,17 +27,17 @@ namespace Assignment3.Controllers
                 string encoding = Shortener.GetShortEncoding(Int32.Parse(pk));
                 //Get the host and port parts of our website url
                 string urlHost = HttpContext.Request.Url.Host;
-                string urlPort = HttpContext.Request.Url.Port.ToString();
+                int urlPort = HttpContext.Request.Url.Port;
                 //If no port, ignore adding it to the shortened url
-                if (urlPort != "")
+                if (urlPort == 80)
                 {
                     //Short url looks like: <website name>:<port>/Home/Go/<encoded pk>
-                    shortURL = urlHost + ":" + urlPort + "/Home/Go/" + encoding;
+                    shortURL = urlHost + "/Home/Go/" + encoding;
                 }
                 else
                 {
                     //Short url looks like: <website name>/Home/Go/<encoded pk>
-                    shortURL = urlHost + "/Home/Go/" + encoding;
+                    shortURL = urlHost + ":" + urlPort.ToString() +  "/Home/Go/" + encoding;
                 }
             }
             //Return the shortened (or null) short url to the view
@@ -46,7 +46,7 @@ namespace Assignment3.Controllers
             return View();
         }
         //Action to redirect to 
-        public void Go(string id = null)
+        public ActionResult Go(string id = null)
         {
             //Get the db instance
             var dbInstance = LinkDatabase.getInstance();
@@ -58,28 +58,19 @@ namespace Assignment3.Controllers
                 {
                     string longUrl = dbInstance.getLongUrl(decoding.ToString());
                     //Ideally, with the above ID we will query the DB and get the respective url and redirect to that page
-                    Response.Redirect(longUrl);
+                    //Response.Redirect(longUrl);
+                    return new RedirectResult(longUrl);
                 }
                 catch (ArgumentException)
                 {
                     //If long url couldn't be found, redirect back to our homepage
-                    string urlHost = HttpContext.Request.Url.Host;
-                    string urlPort = HttpContext.Request.Url.Port.ToString();
-                    if (urlPort != "")
-                        Response.Redirect(urlHost + ":" + urlPort);
-                    else
-                        Response.Redirect(urlHost);
+                    return RedirectToAction("LinkShortener", "Home");
                 }
             }
             else
             {
                 //Otherwise, redirect back to our homepage
-                string urlHost = HttpContext.Request.Url.Host;
-                string urlPort = HttpContext.Request.Url.Port.ToString();
-                if (urlPort != "")
-                    Response.Redirect(urlHost + ":" + urlPort);
-                else
-                    Response.Redirect(urlHost);
+                return RedirectToAction("LinkShortener", "Home");
             }
         }
     }
