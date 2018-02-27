@@ -77,7 +77,7 @@ namespace Assignment4.Models.Database
         /// <summary>
         /// Saves the company review to the database to be accessed later via the company name
         /// </summary>
-        public bool saveCompanyReview(string companyName, string username, string review, int stars, long timestamp)
+        public bool saveCompanyReview(string companyName, string username, string review, int? stars, long? timestamp)
         {
             string query = @"INSERT INTO " + dbname + ".writtenReviews "
                 + @"VALUES('" + companyName + @"', '" + username + @"', '" + review + @"', " + stars + ", " + timestamp + @");";
