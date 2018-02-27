@@ -16,7 +16,9 @@ namespace Assignment4.Controllers
         {
             Response response = new Response();
             JavaScriptSerializer ser = new JavaScriptSerializer();
-            if (reviews.review == null)
+            if (reviews.review == null || reviews.review.companyName == null || reviews.review.username == null || 
+                reviews.review.review == null || reviews.review.stars == null || reviews.review.timestamp == null ||
+                reviews.review.stars < 1 || reviews.review.stars > 5)
             {
                 response.response = "failure";
             }
