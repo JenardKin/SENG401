@@ -1,11 +1,11 @@
-﻿using LinkShortener.Models.Debugging;
+﻿using Assignment4.Models.Debugging;
 
 using MySql.Data.MySqlClient;
 
 using System;
 using System.Threading;
 
-namespace LinkShortener.Models.Database
+namespace Assignment4.Models.Database
 {
     /// <summary>
     /// This class is used as a base class for the creation and deletion of a database.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinkShortener.Models.Database
+namespace Assignment4.Models.Database
 {
 
     /// <summary>

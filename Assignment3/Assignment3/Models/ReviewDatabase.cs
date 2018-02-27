@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace Assignment4.Models.Database
+namespace LinkShortener.Models.Database
 {
     public partial class ReviewDatabase : AbstractDatabase
     {
@@ -20,13 +20,48 @@ namespace Assignment4.Models.Database
             }
             return instance;
         }
+
+        /// <summary>
+        /// Gets a long URL based on the id of the short url
+        /// </summary>
+        /// <param name="id">The id of the short url</param>
+        /// <throws type="ArgumentException">Throws an argument exception if the short url id does not refer to anything in the database</throws>
+        /// <returns>The long url the given short url refers to</returns>
+        public string getLongUrl(string id)
+        {
+            string query = @"SELECT * FROM " + dbname + ".shortenedLinks "
+                + "WHERE id=" + id + ";";
+
+            if(openConnection() == true)
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                if(reader.Read() == true)
+                {
+                    string originalUrl = reader.GetString("original");
+                    reader.Close();
+                    closeConnection();
+                    return originalUrl;
+                }
+                else
+                {
+                    //Throw an exception indicating no result was found
+                    throw new ArgumentException("No url in the database matches that id.");
+                }
+            }
+            else
+            {
+                throw new Exception("Could not connect to database.");
+            }
+        }
         /// <summary>
         /// Gets reviews based on company name
         /// </summary>
         /// <param name="companyName">The name of the company</param>
         /// <throws type="ArgumentException">Throws an argument exception if the short url id does not refer to anything in the database</throws>
         /// <returns>The reviews for the company</returns>
-        public List<Review> getCompanyReviews(string companyName)
+        public Review getCompanyReviews(string companyName)
         {
             string query = @"SELECT * FROM " + dbname + ".writtenReviews "
                 + @"WHERE companyName='" + companyName + @"';";
@@ -36,32 +71,18 @@ namespace Assignment4.Models.Database
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
 
-                List<Review> rList = new List<Review>();
+                Review[] reviews;
                 if (reader.Read() == true)
                 {
                     //SET REVIEW DATA HERE
-                    rList.Add(new Review
-                    {
-                        companyName = reader.GetString("companyName"),
-                        username = reader.GetString("username"),
-                        review = reader.GetString("review"),
-                        stars = reader.GetInt32("stars"),
-                        timestamp = reader.GetInt64("timestamp")
-                    });
+                    //reviews.add... = reader.GetString("username");
                     while (reader.Read())
                     {
-                        rList.Add(new Review
-                        {
-                            companyName = reader.GetString("companyName"),
-                            username = reader.GetString("username"),
-                            review = reader.GetString("review"),
-                            stars = reader.GetInt32("stars"),
-                            timestamp = reader.GetInt64("timestamp")
-                        });
+                        //...
                     }
                     reader.Close();
                     closeConnection();
-                    return rList;
+                    return reviews;
                 }
                 else
                 {
