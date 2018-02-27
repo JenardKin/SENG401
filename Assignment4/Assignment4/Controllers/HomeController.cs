@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Assignment4.Models;
@@ -35,9 +36,44 @@ namespace Assignment4.Controllers
             }
             return ser.Serialize(response);
         }
-        public Review[] GetCompanyReview()
+
+        [HttpPost]
+        public string GetCompanyReview(CompanyName name)
         {
-            return new Review[0];
+            
+            ResponseReview response = new ResponseReview();
+            JavaScriptSerializer ser = new JavaScriptSerializer();
+            if (name == null || name.companyName == null)
+            {
+                response.response = "failure";
+                return ser.Serialize(response.response);
+            }
+            else
+            {
+                var dbInstance = ReviewDatabase.getInstance();
+                dbInstance.createDB();
+                List<Review> list = null;
+                try
+                {
+                    list = dbInstance.getCompanyReviews(name.companyName);
+                }
+                catch (ArgumentException)
+                {
+                    Response r = new Response() { response = "failure" };
+                    return ser.Serialize(r);
+                }
+
+                var listlength = list.Count;
+                response.reviews = new Review[listlength];
+                int i = 0;
+                foreach(var review in list)
+                {
+                    response.reviews[i] = review;
+                    i++;
+                }
+            }
+
+            return ser.Serialize(response);
         }
     }
 }

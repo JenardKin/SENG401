@@ -21,7 +21,13 @@ namespace Assignment4.Models
     {
         public Review review { get; set; }
     }
-    public class ResponseReview{
+    public class ResponseReview
+    {
         public string response { get; set; }
         public Review[] reviews { get; set; }
+    }
+    public class CompanyName
+    {
+        public string companyName { get; set; }
+    }
 }
