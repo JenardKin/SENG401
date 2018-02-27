@@ -224,7 +224,7 @@ namespace Assignment4.Models.Database
         /// <summary>
         /// This is the password used to login to the database by the connection
         /// </summary>
-        private const string Password = "root";//"seng401";
+        private const string Password = "seng401";
 
         /// <summary>
         /// This is the name of the database. This property must be defined by the inheriting class

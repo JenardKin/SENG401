@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Assignment4.Models
 {
+    //Collection of all classes used for serializing/deserializing json objects
     public class Response
     {
         public string response { get; set; }
@@ -14,6 +15,7 @@ namespace Assignment4.Models
         public string companyName { get; set; }
         public string username { get; set; }
         public string review { get; set; }
+        //Int and long use ? to check nullable
         public int? stars { get; set; }
         public long? timestamp { get; set; }
     }

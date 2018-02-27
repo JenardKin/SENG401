@@ -8,6 +8,8 @@ using System.Web;
 
 namespace Assignment4.Models.Database
 {
+    //Reuse of most code from assignment 3 - LinkDatabase.
+    //Source code available on the D2L course website
     public partial class ReviewDatabase : AbstractDatabase
     {
         private ReviewDatabase() { }
@@ -23,20 +25,21 @@ namespace Assignment4.Models.Database
         /// <summary>
         /// Gets reviews based on company name
         /// </summary>
-        /// <param name="companyName">The name of the company</param>
-        /// <throws type="ArgumentException">Throws an argument exception if the short url id does not refer to anything in the database</throws>
-        /// <returns>The reviews for the company</returns>
         public List<Review> getCompanyReviews(string companyName)
         {
+            //Query for selecting all rows with the same company name
             string query = @"SELECT * FROM " + dbname + ".writtenReviews "
                 + @"WHERE companyName='" + companyName + @"';";
 
             if (openConnection() == true)
             {
+                //Execute the sql query
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
 
+                //Generate a list of reviews from the sql query return
                 List<Review> rList = new List<Review>();
+                //Check that atleast one result was returned
                 if (reader.Read() == true)
                 {
                     //SET REVIEW DATA HERE
@@ -48,6 +51,7 @@ namespace Assignment4.Models.Database
                         stars = reader.GetInt32("stars"),
                         timestamp = reader.GetInt64("timestamp")
                     });
+                    //While loop the rest of the data (if any)
                     while (reader.Read())
                     {
                         rList.Add(new Review
@@ -59,6 +63,7 @@ namespace Assignment4.Models.Database
                             timestamp = reader.GetInt64("timestamp")
                         });
                     }
+                    //Close the reader and return the list
                     reader.Close();
                     closeConnection();
                     return rList;
@@ -79,11 +84,13 @@ namespace Assignment4.Models.Database
         /// </summary>
         public bool saveCompanyReview(string companyName, string username, string review, int? stars, long? timestamp)
         {
+            //Query to insert a review into the db
             string query = @"INSERT INTO " + dbname + ".writtenReviews "
                 + @"VALUES('" + companyName + @"', '" + username + @"', '" + review + @"', " + stars + ", " + timestamp + @");";
 
             if (openConnection() == true)
             {
+                //Execute the command, and if a row was affected (successful query) then return true, else return false
                 MySqlCommand command = new MySqlCommand(query, connection);
                 int rows = command.ExecuteNonQuery();
                 if (rows == 1) return true;
@@ -106,6 +113,7 @@ namespace Assignment4.Models.Database
         protected override Table[] tables { get; } =
         {
             // This represents the database schema
+            // No column represents a primary key
             new Table
             (
                 dbname,

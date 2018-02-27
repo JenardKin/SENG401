@@ -1,6 +1,12 @@
 ﻿@{
     ViewBag.Title = "Assignment 4";
 }
+<!--Default page if client requests a page. Gives directions for how to use the REST api-->
 <h2>SENG 401 - Assignment 4 - Group 8</h2>
-<p>To get a company review use HTTP post<br/>
-To save review use path /Home/SaveCompanyReview</p>
+<p>
+    Company review get and saver with HTTP post<br /><br />
+    To save a review use path /Home/SaveCompanyReview with the body of the JSON info<br />
+    To get a review use path /Home/GetCompanyReview with the body of the JSON info<br /><br />
+    JSON info for save should look like {"review":{"companyName":"...", "username":"...", "review":"...", "stars":..., "timestamp":...}}<br />
+    JSON info for get should look like {"companyName":"..."}
+</p>
