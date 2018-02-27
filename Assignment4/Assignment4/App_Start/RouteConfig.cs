@@ -15,8 +15,8 @@ namespace Assignment4
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{companyName}",
+                defaults: new { controller = "Home", action = "Index", companyName = UrlParameter.Optional }
             );
         }
     }

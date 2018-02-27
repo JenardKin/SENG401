@@ -47,11 +47,7 @@ namespace Assignment4.Controllers
             //Serialize the response and return it
             return ser.Serialize(response);
         }
-
-        [HttpPost]
-        //Method gets company reviews from our DB and returns their serialized form
-        //HttpPost with JSON object will be deserialized into a CompanyName object
-        public string GetCompanyReview(CompanyName name)
+        private string GetReviews(CompanyName name)
         {
             //Create a ResponseReview object and serializer
             ResponseReview response = new ResponseReview();
@@ -84,7 +80,7 @@ namespace Assignment4.Controllers
                 response.reviews = new Review[list.Count];
                 int i = 0;
                 //Loop through all items in the list
-                foreach(var review in list)
+                foreach (var review in list)
                 {
                     //foreach item in the list, save it at the current index of the array, then increment the index
                     response.reviews[i] = review;
@@ -95,6 +91,24 @@ namespace Assignment4.Controllers
             }
             //Serialize the ResponseReview object and return
             return ser.Serialize(response);
+        }
+        [HttpGet]
+        //Method gets company reviews from our DB and returns their serialized form
+        //HttpGet with string parameter will be deserialized into a CompanyName object
+        public string GetCompanyReview(string companyName)
+        {
+            CompanyName name = new CompanyName()
+            {
+                companyName = companyName
+            };
+            return this.GetReviews(name);
+        }
+        [HttpPost]
+        //Method gets company reviews from our DB and returns their serialized form
+        //HttpPost with JSON object will be deserialized into a CompanyName object
+        public string GetCompanyReview(CompanyName name)
+        {
+            return this.GetReviews(name);
         }
     }
 }
