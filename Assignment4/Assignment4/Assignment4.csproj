@@ -159,10 +159,8 @@
     <Compile Include="Models\AbstractDatabase.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\Debug.cs" />
-    <Compile Include="Models\Response.cs" />
-    <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\JSONClasses.cs" />
     <Compile Include="Models\ReviewDatabase.cs" />
-    <Compile Include="Models\Reviews.cs" />
     <Compile Include="Models\Table.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

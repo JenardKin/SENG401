@@ -5,6 +5,10 @@ using System.Web;
 
 namespace Assignment4.Models
 {
+    public class Response
+    {
+        public string response { get; set; }
+    }
     public class Review
     {
         public string companyName { get; set; }
@@ -13,4 +17,11 @@ namespace Assignment4.Models
         public int? stars { get; set; }
         public long? timestamp { get; set; }
     }
+    public class Reviews
+    {
+        public Review review { get; set; }
+    }
+    public class ResponseReview{
+        public string response { get; set; }
+        public Review[] reviews { get; set; }
 }

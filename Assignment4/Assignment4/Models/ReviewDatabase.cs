@@ -117,9 +117,8 @@ namespace Assignment4.Models.Database
                         "companyName", "VARCHAR(300)",
                         new string[]
                         {
-                            "NOT NULL",
-                            "UNIQUE",
-                        }, true
+                            "NOT NULL"
+                        }, false
                     ),
                     new Column
                     (
