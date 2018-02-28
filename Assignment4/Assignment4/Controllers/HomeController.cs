@@ -27,7 +27,7 @@ namespace Assignment4.Controllers
             //Check if any of the fields of the deserialized object is null.
             //Also check that the number of stars is in the range 1 to 5
             if (r == null || r.companyName == null || r.username == null || 
-                r.review == null || r.stars == null || r.timestamp == null ||
+                r.review == null || r.stars == null || r.timestamp == null || r.timestamp < 1400000000 ||
                 r.stars < 1 || r.stars > 5)
             {
                 //If any of these fail, return a failure
