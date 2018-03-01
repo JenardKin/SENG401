@@ -1,0 +1,41 @@
+﻿@{ 
+    ViewBag.Title = "Echo Service";
+}
+
+<script type="text/javascript" src="~/Scripts/Echo/EchoFunctions.js"></script>
+
+<h2>@ViewBag.Title</h2>
+
+<p>Please enter the information you wish to have echo'd by the service bus</p>
+
+<br />
+
+<!--
+The first two parameters indicate which function is being called and which Controller it is being called on, respectively.
+The third indicates what type of http message to send
+The fourth lists all html attributes we want to give the form.
+We set an id attribute so that we will be able to access the values of our form in the javascript
+and we set an onsubmit attribute that will call a javascript function when the user submits the form.
+The form will only be submitted and sent to the controller on the server if the javascript function we call returns a value of true
+-->
+@using (Html.BeginForm("AsIsEcho", "Echo", FormMethod.Get,
+    new { id = "asIsEchoForm", onsubmit = "return validateAsIsEchoForm()"}))
+{
+    <h3>As Is Echo</h3>
+    @Html.TextBox("asIsText")
+    <input type="submit" value="Echo" />
+    <br />
+    <p>@ViewBag.AsIsResponse</p>
+    <br />
+}
+
+@using (Html.BeginForm("ReverseEcho", "Echo", FormMethod.Get,
+    new { id = "reverseEchoForm", onsubmit = "return validateReverseEchoForm()"}))
+{
+    <h3>Reverse Echo</h3>
+    @Html.TextBox("reverseText")
+    <input type="submit" value="Echo" />
+    <br />
+    <p>@ViewBag.ReverseResponse</p>
+    <br />
+}
