@@ -7,9 +7,6 @@
 }
 
 <script type="text/javascript" src="~/Scripts/Authentication/AuthenticationFunctions.js"></script>
-<script type="text/javascript" src="~/Scripts/Authentication/AuthenticationFunctions.js">
-    ResponseText(@ViewBag.LogInResult)
-</script>
 
 <h2>@ViewBag.Title</h2>
 
@@ -29,4 +26,8 @@
     <h2 id="response">@ViewBag.LogInResponse</h2>
     <br />
 }
-<button>Create Account</button>
+
+@using (Html.BeginForm("CreateAccount", "Authentication", FormMethod.Get))
+{
+    <input type="submit" value="Create Account" />
+}

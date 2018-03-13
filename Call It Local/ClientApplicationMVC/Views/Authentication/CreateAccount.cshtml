@@ -2,13 +2,42 @@
     This is the html page that opens when a user navigates
     to the create an account page
 -->
-
-<script type="text/javascript" src="~/Scripts/Authentication/AuthenticationFunctions.js"></script>
-
 @{
     ViewBag.Title = "Create Account";
 }
 
+<script type="text/javascript" src="~/Scripts/Authentication/AuthenticationFunctions.js"></script>
+
 <h2>@ViewBag.Title</h2>
 
-<!-- The remainder of this file is to be completed by students in milestone 2 -->
+<p>@ViewBag.Message</p>
+
+@using (Html.BeginForm("UserCreateAccount", "Authentication", FormMethod.Get,
+    new { id = "createAccountForm", onsubmit = "return validateCreateAccountForm()" }))
+{
+    <p>
+        Enter your desired username<br />
+        @Html.TextBox("username")<br />
+        Enter your password (Cannot be empty)<br />
+        @Html.Password("password")<br />
+        Enter your address (Cannot be empty)<br />
+        @Html.TextBox("address")<br />
+        Enter your phone number (Cannot be empty)<br />
+        @Html.TextBox("phonenumber")<br />
+        Enter your email (Cannot be empty)<br />
+        @Html.TextBox("email")<br />
+        Select account type<br />
+        <input type="radio" name="accountType" value="user" checked> User<br />
+        <input type="radio" name="accountType" value="business"> Buisness<br />
+        <input type="radio" name="accountType" value="notspecified"> Not Specified<br />
+    </p>
+    <input type="submit" value="Create Account" />
+    <br />
+    <h2 id="response">@ViewBag.CreateAccountResponse</h2>
+    <br />
+}
+
+@using (Html.BeginForm("Index", "Authentication", FormMethod.Get))
+{
+    <input type="submit" value="Log in" />
+}

@@ -11,8 +11,9 @@ namespace ClientApplicationMVC.Controllers
         /// The default controller method.
         /// </summary>
         /// <returns>The home page</returns>
-        public ActionResult Index()
+        public ActionResult Index(string msg)
         {
+            ViewBag.AuthenticationResponse = msg;
             return View();
         }
 

@@ -31,6 +31,7 @@ namespace ClientApplicationMVC.Controllers
             return View("CreateAccount");
         }
 
+        //HTTP Get
         public ActionResult UserLogIn(string username, string password)
         {
             LogInRequest request = new LogInRequest(username, password);
@@ -38,7 +39,7 @@ namespace ClientApplicationMVC.Controllers
             if (response.response.Equals(""))
             {
                 if (response.result)
-                    ViewBag.LogInResponse = username + " sucessfully logged in!";
+                    return RedirectToAction("Index", "Home", new { msg = "Hello " + username + " logged in sucessfully!" });
                 else
                     ViewBag.LogInResponse = "Invalid username or password!";
             }
@@ -50,6 +51,36 @@ namespace ClientApplicationMVC.Controllers
             ViewBag.LogInResult = response.result;
 
             return View("Index");
+        }
+
+        public ActionResult UserCreateAccount(string username, string password, string address, string phonenumber, string email, string accountType)
+        {
+            var account = AccountType.notspecified;
+            switch (accountType)
+            {
+                case "user":
+                    account = AccountType.user;
+                    break;
+                case "business":
+                    account = AccountType.business;
+                    break;
+            }
+            CreateAccountRequest request = new CreateAccountRequest(new CreateAccount()
+            {
+                username = username,
+                password = password,
+                address = address,
+                email = email,
+                phonenumber = phonenumber,
+                type = account
+            });
+            ServiceBusResponse response = ConnectionManager.sendNewAccountInfo(request);
+            if (response.result)
+            {
+                return RedirectToAction("Index", "Home", new { msg = "Hello " + username + " account successfully created!" } );
+            }
+            ViewBag.CreateAccountResponse = response.response;
+            return View("CreateAccount");
         }
     }
 }
