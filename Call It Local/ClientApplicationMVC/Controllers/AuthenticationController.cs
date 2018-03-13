@@ -32,6 +32,12 @@ namespace ClientApplicationMVC.Controllers
         }
 
         //HTTP Get
+        /// <summary>
+        /// This function is called by the client on the users computer when they request to log in
+        /// </summary>
+        /// <param name="username">The clients username</param>
+        /// <param name="password">The clients password</param>
+        /// <returns>Either redirects to homepage on correct log in or returns an error message to the create account screen</returns>
         public ActionResult UserLogIn(string username, string password)
         {
             LogInRequest request = new LogInRequest(username, password);
@@ -53,6 +59,16 @@ namespace ClientApplicationMVC.Controllers
             return View("Index");
         }
 
+        /// <summary>
+        /// This function is called by the client on the users computer when they request to create account
+        /// </summary>
+        /// <param name="username">The clients desired username</param>
+        /// <param name="password">The clients password</param>
+        /// <param name="address">The clients address</param>
+        /// <param name="accountType">The clients account type (user, business, or notspecified)</param>
+        /// <param name="email">The clients desired email address</param>
+        /// <param name="phonenumber">The clients phonenumber</param>
+        /// <returns>Either redirects to homepage on correct log in or returns an error message to the log in screen</returns>
         public ActionResult UserCreateAccount(string username, string password, string address, string phonenumber, string email, string accountType)
         {
             var account = AccountType.notspecified;

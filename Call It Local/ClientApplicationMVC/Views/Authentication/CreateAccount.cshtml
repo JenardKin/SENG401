@@ -12,9 +12,11 @@
 
 <p>@ViewBag.Message</p>
 
+<!-- Form for user creating account in -->
 @using (Html.BeginForm("UserCreateAccount", "Authentication", FormMethod.Get,
     new { id = "createAccountForm", onsubmit = "return validateCreateAccountForm()" }))
 {
+    <!-- All relevant fields and radio buttons -->
     <p>
         Enter your desired username<br />
         @Html.TextBox("username")<br />
@@ -31,12 +33,14 @@
         <input type="radio" name="accountType" value="business"> Buisness<br />
         <input type="radio" name="accountType" value="notspecified"> Not Specified<br />
     </p>
+    <!-- Submission button and response -->
     <input type="submit" value="Create Account" />
     <br />
     <h2 id="response">@ViewBag.CreateAccountResponse</h2>
     <br />
 }
 
+<!-- Form for user going to log in page -->
 @using (Html.BeginForm("Index", "Authentication", FormMethod.Get))
 {
     <input type="submit" value="Log in" />

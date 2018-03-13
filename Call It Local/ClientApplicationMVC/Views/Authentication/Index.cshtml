@@ -12,21 +12,25 @@
 
 <p>@ViewBag.Message</p>
 
+<!-- Form for user logging in -->
 @using (Html.BeginForm("UserLogIn", "Authentication", FormMethod.Get,
     new { id = "logInForm", onsubmit = "return validateLogInForm()" }))
 {
+    <!-- Text fields for user and pass -->
     <p>
         Username<br />
         @Html.TextBox("username")<br />
         Password<br />
         @Html.Password("password")
     </p>
+    <!-- Submission button and response -->
     <input type="submit" value="Log In" />
     <br />
     <h2 id="response">@ViewBag.LogInResponse</h2>
     <br />
 }
 
+<!-- Form for user going to create account page -->
 @using (Html.BeginForm("CreateAccount", "Authentication", FormMethod.Get))
 {
     <input type="submit" value="Create Account" />
