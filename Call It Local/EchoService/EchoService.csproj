@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{52AB0C1F-BEDA-45A4-A121-BEED2ADB44C8}</ProjectGuid>
+    <ProjectGuid>{DF4CA832-95D2-47C5-9059-8B76F16487C5}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>EchoService</RootNamespace>
     <AssemblyName>EchoService</AssemblyName>
@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Messages\Messages.csproj">
-      <Project>{9ba227e5-4d2e-495c-b7a3-d351ee86c39f}</Project>
+      <Project>{f423afa5-ddcb-49c0-92ea-1d57201eae6f}</Project>
       <Name>Messages</Name>
     </ProjectReference>
   </ItemGroup>

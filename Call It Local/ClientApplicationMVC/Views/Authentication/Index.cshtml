@@ -2,13 +2,31 @@
     This is the html page that opens when a user navigates or is redirected
     to the log in page
 -->
-
-<script type="text/javascript" src="~/Scripts/Authentication/AuthenticationFunctions.js"></script>
-
 @{
     ViewBag.Title = "Log In";
 }
 
+<script type="text/javascript" src="~/Scripts/Authentication/AuthenticationFunctions.js"></script>
+<script type="text/javascript" src="~/Scripts/Authentication/AuthenticationFunctions.js">
+    ResponseText(@ViewBag.LogInResult)
+</script>
+
 <h2>@ViewBag.Title</h2>
 
-<!-- The remainder of this file is to be completed by students in milestone 2 -->
+<p>@ViewBag.Message</p>
+
+@using (Html.BeginForm("UserLogIn", "Authentication", FormMethod.Get,
+    new { id = "logInForm", onsubmit = "return validateLogInForm()" }))
+{
+    <p>
+        Username<br />
+        @Html.TextBox("username")<br />
+        Password<br />
+        @Html.Password("password")
+    </p>
+    <input type="submit" value="Log In" />
+    <br />
+    <h2 id="response">@ViewBag.LogInResponse</h2>
+    <br />
+}
+<button>Create Account</button>

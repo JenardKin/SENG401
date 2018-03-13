@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B4E457E5-0BA6-4654-8E2C-6A012926271E}</ProjectGuid>
+    <ProjectGuid>{B0CF9061-48AB-4CF7-AF6E-56C155D89C0E}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -215,7 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Messages\Messages.csproj">
-      <Project>{9ba227e5-4d2e-495c-b7a3-d351ee86c39f}</Project>
+      <Project>{f423afa5-ddcb-49c0-92ea-1d57201eae6f}</Project>
       <Name>Messages</Name>
     </ProjectReference>
   </ItemGroup>
@@ -235,9 +235,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53574</DevelopmentServerPort>
+          <DevelopmentServerPort>58074</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53574/</IISUrl>
+          <IISUrl>http://localhost:58074/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
