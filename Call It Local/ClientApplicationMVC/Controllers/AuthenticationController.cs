@@ -81,6 +81,7 @@ namespace ClientApplicationMVC.Controllers
                     account = AccountType.business;
                     break;
             }
+            phonenumber = phonenumber.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
             CreateAccountRequest request = new CreateAccountRequest(new CreateAccount()
             {
                 username = username,
