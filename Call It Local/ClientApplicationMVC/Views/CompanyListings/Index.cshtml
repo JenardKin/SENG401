@@ -1,0 +1,37 @@
+﻿
+<!--
+    This page will be used to search for and display Company names
+-->
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Search for companies by name</h2>
+
+@using (Html.BeginForm("Search", "CompanyListings"))
+{
+    <p>@ViewBag.Message</p>
+    <br />
+
+    @Html.TextBox("textCompanyName")
+    <input type="submit" value="Search" />
+    <br /><br /><br />
+
+    
+}
+@if (ViewBag.Companylist != null)
+{
+    if (ViewBag.Companylist.companyNames.Length == 0)
+    {
+        <p>Your search did not retrun any results. Please try again.</p>
+    }
+    else
+    {
+        <p style="font-size:larger">Results:</p> <br />
+        foreach (string item in ViewBag.Companylist.companyNames)
+        {
+            @Html.ActionLink(item, "DisplayCompany/" + item, "CompanyListings")
+            <br/>
+        }
+    }
+}

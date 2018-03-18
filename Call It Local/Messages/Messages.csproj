@@ -48,6 +48,8 @@
     <Compile Include="Database\AbstractDatabase.cs" />
     <Compile Include="Database\Column.cs" />
     <Compile Include="Database\Table.cs" />
+    <Compile Include="DataTypes\Database\CompanyDirectory\CompanyInstance.cs" />
+    <Compile Include="DataTypes\Database\CompanyDirectory\CompanyList.cs" />
     <Compile Include="DataTypes\Enums.cs" />
     <Compile Include="DataTypes\SharedData.cs" />
     <Compile Include="Debug\Debug.cs" />
@@ -59,6 +61,11 @@
     <Compile Include="ServiceBusRequest\Authentication\AuthenticationServiceRequest.cs" />
     <Compile Include="ServiceBusRequest\Authentication\Requests\CreateAccountRequest.cs" />
     <Compile Include="ServiceBusRequest\Authentication\Requests\LogInRequest.cs" />
+    <Compile Include="ServiceBusRequest\CompanyDirectory\CompanyDirectoryServiceRequest.cs" />
+    <Compile Include="ServiceBusRequest\CompanyDirectory\Requests\CompanySearchRequest.cs" />
+    <Compile Include="ServiceBusRequest\CompanyDirectory\Requests\GetCompanyInfoRequest.cs" />
+    <Compile Include="ServiceBusRequest\CompanyDirectory\Responses\CompanySearchResponse.cs" />
+    <Compile Include="ServiceBusRequest\CompanyDirectory\Responses\GetCompanyInfoResponse.cs" />
     <Compile Include="ServiceBusRequest\Echo\EchoServiceRequest.cs" />
     <Compile Include="ServiceBusRequest\Echo\Requests\AsIsEchoRequest.cs" />
     <Compile Include="ServiceBusRequest\Echo\Requests\ReverseEchoRequest.cs" />

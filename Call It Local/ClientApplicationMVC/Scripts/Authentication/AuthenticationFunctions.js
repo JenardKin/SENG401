@@ -6,7 +6,7 @@ function validateLogInForm() {
         response.innerText = "Username cannot be blank";
         return false;
     }
-    else if (logInForm.password.value == "") {
+    else if (logInForm.password.value === "") {
         response.innerText = "Password cannot be blank";
     }
     return true;
@@ -47,15 +47,15 @@ function validateCreateAccountForm() {
             // ) is optional iff ( was not provided
             // d = a single digit
             // w = whitespace " " or a hypen "-" or empty ""
-    var re1 = /((\d{3})|(\(\d{3}\)))(\-{0,1}|\s{0,1})\d{3}(\-{0,1}|\s{0,1})\d{4}/
-    if (!(createAccountForm.phonenumber.value.match(re1))) {
-        response.innerText = "Phone number must be of the following forms: (XXX)-XXX-XXXX,XXX-XXX-XXXX with hyphens (or spaces) optional"
+    var re4 = /((\d{3})|(\(\d{3}\)))(\-{0,1}|\s{0,1})\d{3}(\-{0,1}|\s{0,1})\d{4}/;
+    if (!createAccountForm.phonenumber.value.match(re4)) {
+        response.innerText = "Phone number must be of the following forms: (XXX)-XXX-XXXX,XXX-XXX-XXXX with hyphens (or spaces) optional";
         return false;
     }
     //Check if email is of the form <string>@<string>.<string>
-    var re2 = /\S+@\S+\.\S+/;
-    if (!(createAccountForm.email.value.match(re2))) {
-        response.innerText = "Email must be of the form: <youremail>@<domain>"
+    var re5 = /\S+@\S+\.\S+/;
+    if (!createAccountForm.email.value.match(re5)) {
+        response.innerText = "Email must be of the form: <youremail>@<domain>";
         return false;
     }
     return true;

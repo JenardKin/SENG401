@@ -1,0 +1,29 @@
+﻿<link href="~/Content/ChatStyles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/CompanyListings/CompanyListingsFunctions.js"></script>
+
+<h2 id="CompanyNameDisplay">@ViewBag.CompanyName</h2>
+
+<br />
+<p>Email: @ViewBag.CompanyInfo.email</p>
+<br />
+<p>Phone Number: @ViewBag.CompanyInfo.phoneNumber</p>
+<br />
+<p>@ViewBag.CompanyName can be found at these locations:</p>
+<br />
+@foreach (string location in ViewBag.CompanyInfo.locations)
+{
+    <p style="padding-left:4em;">@location</p>
+    <br />
+}
+
+<div style="height:100px">
+    <h4>Start a conversation with @ViewBag.CompanyName</h4>
+    <div style="width:400px; float:left">
+        <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>
+    </div>
+    <div style="float:left">
+        <button class="sendbutton" id="SendMessageButton">Send</button>
+    </div>
+</div>
+<br /><br />
