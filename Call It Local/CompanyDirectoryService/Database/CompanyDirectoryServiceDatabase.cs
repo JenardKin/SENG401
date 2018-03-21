@@ -1,7 +1,9 @@
 ﻿using Messages;
 using Messages.Database;
 using Messages.DataTypes;
+using Messages.DataTypes.Database.CompanyDirectory;
 using Messages.NServiceBus.Events;
+using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.Echo.Requests;
 
 using MySql.Data.MySqlClient;
@@ -40,51 +42,104 @@ namespace CompanyDirectoryService.Database
             return instance;
         }
 
-        ///// <summary>
-        ///// Saves the foreward echo to the database
-        ///// </summary>
-        ///// <param name="echo">Information about the echo</param>
-        //public void saveAsIsEcho(AsIsEchoEvent echo)
-        //{
-        //    if(openConnection() == true)
-        //    {
-        //        string query = @"INSERT INTO echoforward(timestamp, username, datain)" +
-        //            @"VALUES('" + DateTimeOffset.Now.ToUnixTimeSeconds().ToString() +
-        //            @"', '" + echo.username + @"', '" + echo.data + @"');";
+        /// <summary>
+        /// Saves company info into the database
+        /// </summary>
+        /// <param name="account">Information about the company</param>
+        public void saveCompanyInfo(AccountCreated account)
+        {
+            if(openConnection() == true)
+            {
+                string query = @"INSERT INTO businessinfo(username, address, phonenumber, email)" +
+                    @"VALUES('" + account.username + @"', '" + account.address + @"', '" + account.phonenumber +
+                    @"', '" + account.email + @"');";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.ExecuteNonQuery();
 
-        //        MySqlCommand command = new MySqlCommand(query, connection);
-        //        command.ExecuteNonQuery();
+                closeConnection();
+            }
+            else
+            {
+                Debug.consoleMsg("Unable to connect to database");
+            }
+        }
+        
+        /// <summary>
+        /// Searches database for a company with a specific name
+        /// </summary>
+        /// <param name="companyName">Name of the company to search for</param>
+        public CompanySearchResponse searchCompanyInfo(string companyName)
+        {
+            bool result = false;
+            string message = "";
+            CompanyList companyList = new CompanyList();
+            if (openConnection() == true)
+            {
+                string query = @"SELECT b.username FROM businessinfo as b WHERE b.username LIKE '%" + companyName + @"%' COLLATE utf8_general_ci;";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
 
-        //        closeConnection();
-        //    }
-        //    else
-        //    {
-        //        Debug.consoleMsg("Unable to connect to database");
-        //    }
-        //}
+                List<string> companyNames = new List<string>();
+                if (reader.Read())
+                {
+                    result = true;
+                    companyNames.Add(reader.GetString("username"));
+                    while (reader.Read())
+                    {
+                        companyNames.Add(reader.GetString("username"));
+                    }
+                    companyList.companyNames = companyNames.ToArray();
+                }
+                else
+                {
+                    message = "No companies containing '" + companyName + "' found";
+                }
+                closeConnection();
+            }
+            else
+            {
+                message = "Unable to connect to database";
+                Debug.consoleMsg("Unable to connect to database");
+            }
+            return new CompanySearchResponse(result, message, companyList);
+        }
 
-        ///// <summary>
-        ///// Saves the reverse echo to the database
-        ///// </summary>
-        ///// <param name="echo">Information about the echo</param>
-        //public void saveReverseEcho(ReverseEchoRequest request)
-        //{
-        //    if (openConnection() == true)
-        //    {
-        //        string query = @"INSERT INTO echoreverse(timestamp, username, datain)" +
-        //            @"VALUES('" + DateTimeOffset.Now.ToUnixTimeSeconds().ToString() +
-        //            @"', '" + request.username + @"', '" + request.data + @"');";
+        /// <summary>
+        /// Gets the info of a single company
+        /// </summary>
+        /// <param name="companyName">Name of the company</param>
+        public GetCompanyInfoResponse getCompanyInfo(string companyName)
+        {
+            bool result = false;
+            string message = "";
+            CompanyInstance companyInst = new CompanyInstance(companyName);
+            if (openConnection() == true)
+            {
+                string query = @"SELECT * FROM businessinfo as b WHERE b.username='" + companyName + @"' COLLATE utf8_general_ci;";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
 
-        //        MySqlCommand command = new MySqlCommand(query, connection);
-        //        command.ExecuteNonQuery();
-
-        //        closeConnection();
-        //    }
-        //    else
-        //    {
-        //        Debug.consoleMsg("Unable to connect to database");
-        //    }
-        //}
+                if (reader.Read())
+                {
+                    result = true;
+                    companyInst.companyName = reader.GetString("username");
+                    companyInst.email = reader.GetString("email");
+                    companyInst.locations = new string[] { reader.GetString("address") };
+                    companyInst.phoneNumber = reader.GetString("phonenumber");
+                }
+                else
+                {
+                    message = "No company named '" + companyName + "' found";
+                }
+                closeConnection();
+            }
+            else
+            {
+                message = "Unable to connect to database";
+                Debug.consoleMsg("Unable to connect to database");
+            }
+            return new GetCompanyInfoResponse(result, message, companyInst);
+        }
     }
 
     /// <summary>
@@ -112,47 +167,47 @@ namespace CompanyDirectoryService.Database
         protected override Table[] tables { get; } =
         {
             new Table
-            (
-                dbname,
-                "businessinfo",
-                new Column[]
-                {
-                    new Column
-                    (
-                        "username", "VARCHAR(50)",
-                        new string[]
-                        {
-                            "NOT NULL",
-                            "UNIQUE"
-                        }, true
-                    ),
-                    new Column
-                    (
-                        "address", "VARCHAR(50)",
-                        new string[]
-                        {
-                            "NOT NULL"
-                        }, false
-                    ),
-                    new Column
-                    (
-                        "phonenumber", "VARCHAR(10)",
-                        new string[]
-                        {
-                            "NUT NULL"
-                        }, false
-                    ),
-                    new Column
-                    (
-                        "email", "VARCHAR(100)",
-                        new string[]
-                        {
-                            "NOT NULL",
-                            "UNIQUE"
-                        }, false
-                    )
-                }
-            )
+                (
+                    dbname,
+                    "businessinfo",
+                    new Column[]
+                    {
+                        new Column
+                        (
+                            "username", "VARCHAR(50)",
+                            new string[]
+                            {
+                                "NOT NULL",
+                                "UNIQUE"
+                            }, true
+                        ),
+                        new Column
+                        (
+                            "address", "VARCHAR(50)",
+                            new string[]
+                            {
+                                "NOT NULL"
+                            }, false
+                        ),
+                        new Column
+                        (
+                            "phonenumber", "VARCHAR(10)",
+                            new string[]
+                            {
+                                "NOT NULL"
+                            }, false
+                        ),
+                        new Column
+                        (
+                            "email", "VARCHAR(100)",
+                            new string[]
+                            {
+                                "NOT NULL",
+                                "UNIQUE"
+                            }, false
+                        ),
+                    }
+                )
         };
     }
 }

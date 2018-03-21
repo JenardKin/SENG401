@@ -35,7 +35,7 @@ namespace CompanyService.Handlers
         {
             if(account.type == AccountType.business)
             {
-                //CompanyDirectoryServiceDatabase.getInstance.saveCompanyInfo(account);
+                CompanyDirectoryServiceDatabase.getInstance().saveCompanyInfo(account);
             }
             return Task.CompletedTask;
         }

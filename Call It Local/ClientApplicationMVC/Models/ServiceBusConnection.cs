@@ -12,6 +12,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
+using Messages.ServiceBusRequest.CompanyDirectory.Requests;
+using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 
 namespace ClientApplicationMVC.Models
 {
@@ -83,6 +85,35 @@ namespace ClientApplicationMVC.Models
         }
 
         #endregion EchoServiceMessages
+
+        #region CompanyDirectoryServiceMessages
+
+
+        /// <summary>
+        /// Sends the data to be echo'd to the service bus
+        /// </summary>
+        /// <param name="request">The data to be echo'd</param>
+        /// <returns>The response from the servicebus</returns>
+        public ServiceBusResponse searchCompanyByName(CompanySearchRequest request)
+        {
+            //???
+            send(request);
+            return readUntilEOF();
+            //return (CompanySearchResponse)readUntilEOF();
+        }
+
+        /// <summary>
+        /// Sends the data to be echo'd to the service bus
+        /// </summary>
+        /// <param name="request">The data to be echo'd</param>
+        /// <returns>The response from the servicebus</returns>
+        public GetCompanyInfoResponse getCompanyInfo(GetCompanyInfoRequest request)
+        {
+            send(request);
+            return (GetCompanyInfoResponse)readUntilEOF();
+        }
+
+        #endregion CompanyDirectoryServiceMessages
 
         #endregion ServiceBusMessages
 
