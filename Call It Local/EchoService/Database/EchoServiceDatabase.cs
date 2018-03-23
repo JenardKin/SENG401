@@ -60,6 +60,11 @@ namespace EchoService.Database
             }
         }
 
+        internal void saveReverseEcho(string message)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Saves the reverse echo to the database
         /// </summary>
