@@ -37,9 +37,9 @@ namespace CompanyService.Handlers
         {
             //Save the echo to the database
             CompanySearchResponse response = CompanyDirectoryServiceDatabase.getInstance().searchCompanyInfo(companies);
-            
+
             //The context is used to give a reply back to the endpoint that sent the request
-            return context.Reply(new ServiceBusResponse(true, response);
+            return context.Reply(new ServiceBusResponse(true, response.list.companyNames);
         }
     }
 }

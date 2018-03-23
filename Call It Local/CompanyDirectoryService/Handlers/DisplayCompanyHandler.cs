@@ -39,7 +39,8 @@ namespace CompanyService.Handlers
             GetCompanyInfoResponse response = CompanyDirectoryServiceDatabase.getInstance().getCompanyInfo(message);
 
             //The context is used to give a reply back to the endpoint that sent the request
-            return context.Reply(new ServiceBusResponse(true, new string(charArray)));
+
+            return context.Reply(new ServiceBusResponse(true, response.companyInfo.companyName));
         }
     }
 }
