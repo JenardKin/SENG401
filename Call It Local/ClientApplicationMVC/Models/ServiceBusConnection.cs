@@ -94,12 +94,10 @@ namespace ClientApplicationMVC.Models
         /// </summary>
         /// <param name="request">The data to be echo'd</param>
         /// <returns>The response from the servicebus</returns>
-        public ServiceBusResponse searchCompanyByName(CompanySearchRequest request)
+        public CompanySearchResponse searchCompanyByName(CompanySearchRequest request)
         {
-            //???
             send(request);
-            return readUntilEOF();
-            //return (CompanySearchResponse)readUntilEOF();
+            return (CompanySearchResponse)readUntilEOF();
         }
 
         /// <summary>

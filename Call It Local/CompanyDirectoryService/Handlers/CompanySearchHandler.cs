@@ -2,6 +2,7 @@
 
 
 using Messages.ServiceBusRequest;
+using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 
 using NServiceBus;
@@ -14,10 +15,10 @@ namespace CompanyService.Handlers
 {
     
     /// <summary>
-    /// This is the handler class for the reverse echo. 
+    /// This is the handler class for the company search request 
     /// This class is created and its methods called by the NServiceBus framework
     /// </summary>
-    public class SearchCompanyHandler : IHandleMessages<String>
+    public class CompanySearchHandler : IHandleMessages<CompanySearchRequest>
     {
         /// <summary>
         /// This is a class provided by NServiceBus. Its main purpose is to be use log.Info() instead of Messages.Debug.consoleMsg().
@@ -25,21 +26,21 @@ namespace CompanyService.Handlers
         /// </summary>
         /// It is important that all logger member variables be static, because NServiceBus tutorials warn that GetLogger<>()
         /// is an expensive call, and there is no need to instantiate a new logger every time a handler is created.
-        static ILog log = LogManager.GetLogger<SearchCompanyHandler>();
+        static ILog log = LogManager.GetLogger<CompanySearchHandler>();
 
         /// <summary>
-        /// Saves the echo to the database, reverses the data, and returns it back to the calling endpoint.
+        /// Searches the db for the company, and returns its results back to the calling endpoint.
         /// </summary>
         /// <param name="message">Information about the echo</param>
         /// <param name="context">Used to access information regarding the endpoints used for this handle</param>
         /// <returns>The response to be sent back to the calling process</returns>
-        public Task Handle(String companies, IMessageHandlerContext context)
+        public Task Handle(CompanySearchRequest request, IMessageHandlerContext context)
         {
             //Save the echo to the database
-            CompanySearchResponse response = CompanyDirectoryServiceDatabase.getInstance().searchCompanyInfo(companies);
+            CompanySearchResponse response = CompanyDirectoryServiceDatabase.getInstance().searchCompanyInfo(request.searchDeliminator);
 
             //The context is used to give a reply back to the endpoint that sent the request
-            return context.Reply(new ServiceBusResponse(true, response.list.companyNames);
+            return context.Reply(response);
         }
     }
 }

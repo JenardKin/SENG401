@@ -15,10 +15,10 @@ namespace CompanyService.Handlers
 {
     
     /// <summary>
-    /// This is the handler class for the reverse echo. 
+    /// This is the handler class for the company display request
     /// This class is created and its methods called by the NServiceBus framework
     /// </summary>
-    public class DisplayCompanyHandler : IHandleMessages<String>
+    public class DisplayCompanyHandler : IHandleMessages<GetCompanyInfoRequest>
     {
         /// <summary>
         /// This is a class provided by NServiceBus. Its main purpose is to be use log.Info() instead of Messages.Debug.consoleMsg().
@@ -29,18 +29,17 @@ namespace CompanyService.Handlers
         static ILog log = LogManager.GetLogger<DisplayCompanyHandler>();
 
         /// <summary>
-        /// Saves the echo to the database, reverses the data, and returns it back to the calling endpoint.
+        /// Searches the db, and returns it's result back to the calling endpoint.
         /// </summary>
         /// <param name="message">Information about the echo</param>
         /// <param name="context">Used to access information regarding the endpoints used for this handle</param>
         /// <returns>The response to be sent back to the calling process</returns>
-        public Task Handle(String message, IMessageHandlerContext context)
+        public Task Handle(GetCompanyInfoRequest request, IMessageHandlerContext context)
         {
-            GetCompanyInfoResponse response = CompanyDirectoryServiceDatabase.getInstance().getCompanyInfo(message);
+            GetCompanyInfoResponse response = CompanyDirectoryServiceDatabase.getInstance().getCompanyInfo(request.companyInfo.companyName);
 
             //The context is used to give a reply back to the endpoint that sent the request
-
-            return context.Reply(new ServiceBusResponse(true, response.companyInfo.companyName));
+            return context.Reply(response);
         }
     }
 }
