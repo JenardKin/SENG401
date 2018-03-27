@@ -27,3 +27,29 @@
     </div>
 </div>
 <br /><br />
+
+@using (Html.BeginForm("SubmitReview", "CompanyListings", new { companyName = @ViewBag.CompanyName }, FormMethod.Get))
+{
+    <h4>Review @ViewBag.CompanyName</h4>
+    <p>
+        <textarea name="review" placeholder="Enter your review here." rows="4"></textarea><br /><br />
+        Stars
+        <div>
+            <input type="radio" name="stars" value="1">1
+            <input type="radio" name="stars" value="2">2
+            <input type="radio" name="stars" value="3" checked>3
+            <input type="radio" name="stars" value="4">4
+            <input type="radio" name="stars" value="5">5
+        </div>
+    </p>
+}
+
+<br />
+
+<!-- Getter for reviews (redirects to new page) -->
+@using (Html.BeginForm("DisplayReviews", "CompanyListings", new { id = @ViewBag.CompanyName }, FormMethod.Get))
+{
+    <input type="submit" value="Get Reviews for @ViewBag.CompanyName" />
+}
+
+<br /><br />

@@ -7,6 +7,7 @@ using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Net.Http;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -75,7 +76,7 @@ namespace ClientApplicationMVC.Controllers
             {
                 return View("Index");
             }
-
+ 
             ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
             if (connection == null)
             {
@@ -90,5 +91,67 @@ namespace ClientApplicationMVC.Controllers
 
             return View("DisplayCompany");
         }
+
+        public ActionResult DisplayReviews(string id)
+        {
+            if(Globals.isLoggedIn() == false)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+            if ("".Equals(id))
+            {
+                return View("Index");
+            }
+            //GET ALL REVIEWS WITH POST
+            ViewBag.CompanyName = id;
+            ViewBag.AvgStars = 10;
+            return View("DisplayReviews");
+        }
+
+        public ActionResult SubmitReview(string review, string companyName, string stars)
+        {
+            //SAVE REVIEW WITH POST
+            //http://localhost:49834/
+            if (Globals.isLoggedIn() == false)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+            if (review != "" && companyName != "" && stars != "")
+            {
+                string username = Globals.getUser();
+                long timestamp = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds();
+                Review reviewObject = new Review()
+                {
+                    companyName = companyName,
+                    username = username,
+                    review = review,
+                    stars = Int32.Parse(stars),
+                    timestamp = timestamp
+                };
+                Reviews reviewsObject = new Reviews()
+                {
+                    review = reviewObject
+                };
+                var companyReviewClient = new HttpClient();
+                var stringContent = new StringContent(reviewsObject.ToString());
+                var response = companyReviewClient.PostAsync("http://localhost:49834/Home/SaveCompanyReview", stringContent);
+                response.
+                return RedirectToAction("DisplayReviews", "CompanyListsings", new { id = companyName });
+            }
+            else
+                return View("Index", "Home");
+        }
+    }
+    public class Review
+    {
+        public string companyName { get; set; }
+        public string username { get; set; }
+        public string review { get; set; }
+        public int? stars { get; set; }
+        public long? timestamp { get; set; }
+    }
+    public class Reviews
+    {
+        public Review review { get; set; }
     }
 }
