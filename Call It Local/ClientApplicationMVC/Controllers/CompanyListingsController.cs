@@ -6,8 +6,10 @@ using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 
 using System;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Net.Http;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
+using System.Text;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -112,6 +114,7 @@ namespace ClientApplicationMVC.Controllers
         {
             //SAVE REVIEW WITH POST
             //http://localhost:49834/
+            //THIS IP NEEDS TO BE OF THE DEPLOYMENT
             if (Globals.isLoggedIn() == false)
             {
                 return RedirectToAction("Index", "Authentication");
@@ -133,14 +136,25 @@ namespace ClientApplicationMVC.Controllers
                     review = reviewObject
                 };
                 var companyReviewClient = new HttpClient();
-                var stringContent = new StringContent(reviewsObject.ToString());
-                var response = companyReviewClient.PostAsync("http://localhost:49834/Home/SaveCompanyReview", stringContent);
-                response.
-                return RedirectToAction("DisplayReviews", "CompanyListsings", new { id = companyName });
+                var jsonObject = JsonConvert.SerializeObject(reviewsObject);
+                var stringContent = new StringContent(jsonObject, Encoding.UTF8, "application/json");
+                var res = companyReviewClient.PostAsync("http://localhost:49834/Home/SaveCompanyReview", stringContent).Result.Content.ReadAsStringAsync().Result;
+                Response resObject = JsonConvert.DeserializeObject<Response>(res);
+                if(resObject.response == "failure")
+                {
+                    ViewBag.ResponseStatus = resObject.response;
+                    return RedirectToAction("DisplayCompany", new { id = companyName });
+                }
+                else
+                    return RedirectToAction("DisplayReviews", new { id = companyName });
             }
             else
                 return View("Index", "Home");
         }
+    }
+    public class Response
+    {
+        public string response { get; set; }
     }
     public class Review
     {
