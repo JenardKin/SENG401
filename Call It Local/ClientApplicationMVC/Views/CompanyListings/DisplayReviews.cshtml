@@ -9,55 +9,66 @@
     ViewBag.Title = "Display Review";
 }
 
-<div style="clear:both">
-    <h2 style="float:left" id="CompanyNameDisplay">@ViewBag.CompanyName</h2>
-    <h2 style="float: right">Average Stars: @ViewBag.AvgStars</h2>
-</div>
-
-<br /><br /><br /><br />
-
-@foreach (var review in ViewBag.ReviewList)
+@if (ViewBag.CompanyExists)
 {
-    <h4>@review.username</h4>
-    <h5>Unix timestamp: @review.timestamp</h5>
-    <span class="fa fa-star checked"></span>
-    if (review.stars == 1)
+    <div style="clear:both">
+        <h2 style="float:left" id="CompanyNameDisplay">@ViewBag.CompanyName</h2>
+        <h2 style="float: right">Average Stars: @ViewBag.AvgStars</h2>
+    </div>
+
+    <br /><br /><br /><br />
+
+    if (ViewBag.ReviewList != null)
     {
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
+        foreach (var review in ViewBag.ReviewList)
+        {
+            <h4>@review.username</h4>
+            <h5>Unix timestamp: @review.timestamp</h5>
+            <span class="fa fa-star checked"></span>
+            if (review.stars == 1)
+            {
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+            }
+            else if (review.stars == 2)
+            {
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+            }
+            else if (review.stars == 3)
+            {
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+            }
+            else if (review.stars == 4)
+            {
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+            }
+            else if (review.stars == 5)
+            {
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+            }
+            <p>@review.review</p>
+            <br />
+        }
     }
-    else if (review.stars == 2)
-    {
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-    }
-    else if (review.stars == 3)
-    {
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-    }
-    else if (review.stars == 4)
-    {
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-    }
-    else if (review.stars == 5)
-    {
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-    }
-    <p>@review.review</p>
-    <br/>
+}
+else
+{
+    <br />
+    <h2>Company: @ViewBag.CompanyName does not exist</h2>
 }
 <br />
 
