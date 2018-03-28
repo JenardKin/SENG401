@@ -94,6 +94,7 @@ namespace CompanyDirectoryService.Database
                 {
                     message = "No companies containing '" + companyName + "' found";
                 }
+                reader.Close();
                 closeConnection();
             }
             else

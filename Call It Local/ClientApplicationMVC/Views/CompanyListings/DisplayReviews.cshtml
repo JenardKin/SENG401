@@ -1,4 +1,11 @@
-﻿@{
+﻿<!-- CSS for stars -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+@{
     ViewBag.Title = "Display Review";
 }
 
@@ -7,5 +14,50 @@
     <h2 style="float: right">Average Stars: @ViewBag.AvgStars</h2>
 </div>
 
-<br/><br/><br/>
+<br /><br /><br /><br />
+
+@foreach (var review in ViewBag.ReviewList)
+{
+    <h4>@review.username</h4>
+    <h5>Unix timestamp: @review.timestamp</h5>
+    <span class="fa fa-star checked"></span>
+    if (review.stars == 1)
+    {
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+    }
+    else if (review.stars == 2)
+    {
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+    }
+    else if (review.stars == 3)
+    {
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+    }
+    else if (review.stars == 4)
+    {
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+    }
+    else if (review.stars == 5)
+    {
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+    }
+    <p>@review.review</p>
+    <br/>
+}
+<br />
 

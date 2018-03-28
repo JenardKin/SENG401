@@ -68,7 +68,7 @@ namespace ClientApplicationMVC.Controllers
         /// </summary>
         /// <param name="id">The name of the company whos info is to be displayed</param>
         /// <returns>A view to be sent to the client</returns>
-        public ActionResult DisplayCompany(string id)
+        public ActionResult DisplayCompany(string id, string responseStatus = null)
         {
             if (Globals.isLoggedIn() == false)
             {
@@ -86,6 +86,7 @@ namespace ClientApplicationMVC.Controllers
             }
 
             ViewBag.CompanyName = id;
+            ViewBag.ResponseStatus = responseStatus;
 
             GetCompanyInfoRequest infoRequest = new GetCompanyInfoRequest(new CompanyInstance(id));
             GetCompanyInfoResponse infoResponse = connection.getCompanyInfo(infoRequest);
@@ -104,9 +105,22 @@ namespace ClientApplicationMVC.Controllers
             {
                 return View("Index");
             }
-            //GET ALL REVIEWS WITH POST
+            var url = "http://localhost:49834/Home/GetCompanyReview/" + id;
+            var companyReviewClient = new HttpClient();
+            var content = companyReviewClient.GetStringAsync(url).Result;
+            ResponseReview result = JsonConvert.DeserializeObject<ResponseReview>(content);
+            int? totalStars = 0;
+            int totalReviews = 0;
+            foreach(var review in result.reviews)
+            {
+                totalStars += review.stars;
+                totalReviews++;
+            }
+            //Format to 2 decimal places
+            var avgStars = ((float)totalStars / totalReviews).ToString("0.00");
+            ViewBag.AvgStars = avgStars;
             ViewBag.CompanyName = id;
-            ViewBag.AvgStars = 10;
+            ViewBag.ReviewList = result.reviews;
             return View("DisplayReviews");
         }
 
@@ -142,30 +156,13 @@ namespace ClientApplicationMVC.Controllers
                 Response resObject = JsonConvert.DeserializeObject<Response>(res);
                 if(resObject.response == "failure")
                 {
-                    ViewBag.ResponseStatus = resObject.response;
-                    return RedirectToAction("DisplayCompany", new { id = companyName });
+                    return RedirectToAction("DisplayCompany", new { id = companyName, responseStatus = "Error occured when submitting review" });
                 }
                 else
-                    return RedirectToAction("DisplayReviews", new { id = companyName });
+                    return RedirectToAction("DisplayCompany", new { id = companyName, responseStatus = "Review successfully saved" });
             }
             else
                 return View("Index", "Home");
         }
-    }
-    public class Response
-    {
-        public string response { get; set; }
-    }
-    public class Review
-    {
-        public string companyName { get; set; }
-        public string username { get; set; }
-        public string review { get; set; }
-        public int? stars { get; set; }
-        public long? timestamp { get; set; }
-    }
-    public class Reviews
-    {
-        public Review review { get; set; }
     }
 }

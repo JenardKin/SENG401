@@ -28,7 +28,7 @@ namespace Assignment4.Models.Database
         public List<Review> getCompanyReviews(string companyName)
         {
             //Query for selecting all rows with the same company name
-            string query = @"SELECT * FROM " + dbname + ".writtenReviews "
+            string query = @"SELECT * FROM writtenReviews "
                 + @"WHERE companyName='" + companyName + @"';";
 
             if (openConnection() == true)
@@ -66,13 +66,13 @@ namespace Assignment4.Models.Database
                     //Close the reader and return the list
                     reader.Close();
                     closeConnection();
-                    return rList;
                 }
                 else
                 {
                     //Throw an exception indicating no result were found
                     throw new ArgumentException("No reviews in the database matches that company name.");
                 }
+                return rList;
             }
             else
             {
@@ -84,15 +84,15 @@ namespace Assignment4.Models.Database
         /// </summary>
         public bool saveCompanyReview(string companyName, string username, string review, int? stars, long? timestamp)
         {
-            //Query to insert a review into the db
-            string query = @"INSERT INTO " + dbname + ".writtenReviews "
-                + @"VALUES('" + companyName + @"', '" + username + @"', '" + review + @"', " + stars + ", " + timestamp + @");";
-
             if (openConnection() == true)
             {
+                //Query to insert a review into the db
+                string query = @"INSERT INTO writtenReviews(companyName, username, review, stars, timestamp) "
+                    + @"VALUES('" + companyName + @"', '" + username + @"', '" + review + @"', " + (int)stars + ", " + (long)timestamp + @");";
                 //Execute the command, and if a row was affected (successful query) then return true, else return false
                 MySqlCommand command = new MySqlCommand(query, connection);
                 int rows = command.ExecuteNonQuery();
+                closeConnection();
                 if (rows == 1) return true;
                 else return false;
             }

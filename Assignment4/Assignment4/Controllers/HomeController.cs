@@ -27,10 +27,10 @@ namespace Assignment4.Controllers
             //Check if any of the fields of the deserialized object is null.
             //Also check that the number of stars is in the range 1 to 5
             //Further, check that unix time is greater than 1400000000
-                    //This isn't necessary, but it indicates that our API is only concerned with newer reviews
-                    //This date is arbitrarily chosen and it correlates to a date in 2014
-                    //Furthermore, in the year 2038 this timestamp will overflow
-            if (r == null || r.companyName == null || r.username == null || 
+            //This isn't necessary, but it indicates that our API is only concerned with newer reviews
+            //This date is arbitrarily chosen and it correlates to a date in 2014
+            //Furthermore, in the year 2038 this timestamp will overflow
+            if (r == null || r.companyName == null || r.username == null ||
                 r.review == null || r.stars == null || r.timestamp == null || r.timestamp < 1400000000 ||
                 r.stars < 1 || r.stars > 5)
             {
@@ -43,7 +43,7 @@ namespace Assignment4.Controllers
                 var dbInstance = ReviewDatabase.getInstance();
                 dbInstance.createDB();
                 //Try to save the company review, if successful report so, if not report failure
-                if(dbInstance.saveCompanyReview(r.companyName, r.username, r.review, r.stars, r.timestamp))
+                if (dbInstance.saveCompanyReview(r.companyName, r.username, r.review, r.stars, r.timestamp))
                     response.response = "success";
                 else
                     response.response = "failure";

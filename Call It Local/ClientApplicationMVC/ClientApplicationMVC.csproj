@@ -151,6 +151,7 @@
     </Compile>
     <Compile Include="Models\ConnectionManager.cs" />
     <Compile Include="Models\Globals.cs" />
+    <Compile Include="Models\JSONClasses.cs" />
     <Compile Include="Models\ServiceBusConnection.cs" />
     <Compile Include="Models\ServiceBusInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -33,12 +33,11 @@ namespace Assignment4.Models.Database
             MySqlCommand command;
             commandString = "CREATE DATABASE " + databaseName + ";";
 
-            if(connection == null)
+            if (connection == null)
             {
                 connection = new MySqlConnection("SERVER=localhost;DATABASE=mysql;UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
             }
 
-            //connection.
             if (openConnection() == true)
             {
                 //First try to create the actual database
@@ -174,7 +173,7 @@ namespace Assignment4.Models.Database
                 mutex.ReleaseMutex();
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 mutex.ReleaseMutex();
                 return false;
