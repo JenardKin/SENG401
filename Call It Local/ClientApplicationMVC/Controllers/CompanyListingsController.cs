@@ -126,7 +126,7 @@ namespace ClientApplicationMVC.Controllers
             //Otherwise company eixsts
             ViewBag.CompanyExists = true;
             //This is the rest call url with url parameter
-            var url = "http://localhost:49834/Home/GetCompanyReview/" + id;
+            var url = "http://130.211.116.86/Home/GetCompanyReview/" + id;
             //Open connection and submit the get request
             var companyReviewClient = new HttpClient();
             var content = companyReviewClient.GetStringAsync(url).Result;
@@ -182,7 +182,7 @@ namespace ClientApplicationMVC.Controllers
                 var jsonObject = JsonConvert.SerializeObject(reviewsObject);
                 var stringContent = new StringContent(jsonObject, Encoding.UTF8, "application/json");
                 //This url is the one where the rest call it to
-                var res = companyReviewClient.PostAsync("http://localhost:49834/Home/SaveCompanyReview", stringContent).Result.Content.ReadAsStringAsync().Result;
+                var res = companyReviewClient.PostAsync("http://130.211.116.86/Home/SaveCompanyReview", stringContent).Result.Content.ReadAsStringAsync().Result;
                 Response resObject = JsonConvert.DeserializeObject<Response>(res);
                 //If response bad, redirect indicating bad request, otherwise, good
                 if(resObject.response == "failure")
