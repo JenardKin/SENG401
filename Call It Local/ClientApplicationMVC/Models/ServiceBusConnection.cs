@@ -3,6 +3,8 @@ using Messages.DataTypes;
 using Messages.ServiceBusRequest;
 using Messages.ServiceBusRequest.Authentication.Requests;
 using Messages.ServiceBusRequest.Echo.Requests;
+using Messages.ServiceBusRequest.Chat.Requests;
+using Messages.ServiceBusRequest.Chat.Responses;
 
 using System;
 using System.IO;
@@ -112,6 +114,28 @@ namespace ClientApplicationMVC.Models
         }
 
         #endregion CompanyDirectoryServiceMessages
+
+        #region ChatServiceMessages
+
+        public GetChatContactsResponse getAllChatContacts(GetChatContactsRequest request)
+        {
+            send(request);
+            return (GetChatContactsResponse)readUntilEOF();
+        }
+
+        public GetChatHistoryResponse getChatHistory(GetChatHistoryRequest request)
+        {
+            send(request);
+            return (GetChatHistoryResponse)readUntilEOF();
+        }
+
+        public ServiceBusResponse sendChatMessage(SendMessageRequest request)
+        {
+            send(request);
+            return readUntilEOF();
+        }
+
+        #endregion ChatServiceMessages
 
         #endregion ServiceBusMessages
 

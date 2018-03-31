@@ -1,0 +1,51 @@
+﻿.messagetextarea {
+    resize: none;
+    max-width: 450px;
+    width: 400px;
+    height: 67px;
+}
+
+.sendbutton{
+    background: #808080;
+    font: 600;
+    height: 67px;
+    width: 100px;
+}
+
+.message{
+    font-size: 15px;
+
+}
+
+.username{
+    color:red;
+    font-weight: bold;
+}
+
+.chatInstanceBox {
+    width: inherit;
+    height: 50px;
+    border: 1px solid;
+    border-color: red;
+}
+
+.chatInstanceCompanyName{
+    font-weight:700;
+    text-align:center;
+    
+}
+
+.chatInstanceCompanyName:hover{
+    background: rgba(255, 255, 255, 0.1);
+    
+}
+
+#ConversationDisplayArea {
+    border: 1px solid;
+    overflow-x:no-content;
+    overflow-y:scroll;
+    height: 429px;
+    margin-bottom: 4px;
+    font-size: larger;
+    width:inherit;
+}

@@ -11,7 +11,7 @@ using NServiceBus.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace CompanyService.Handlers
+namespace CompanyDirectoryService.Handlers
 {
     
     /// <summary>

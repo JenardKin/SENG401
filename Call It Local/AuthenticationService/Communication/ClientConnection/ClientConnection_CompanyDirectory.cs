@@ -7,7 +7,7 @@ using NServiceBus;
 namespace AuthenticationService.Communication
 {
     /// <summary>
-    /// This portion of the class contains methods specifically for accessing the echo service.
+    /// This portion of the class contains methods specifically for accessing the companyDirectory service.
     /// </summary>
     partial class ClientConnection
     {

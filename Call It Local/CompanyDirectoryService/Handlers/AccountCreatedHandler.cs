@@ -8,7 +8,7 @@ using NServiceBus.Logging;
 
 using System.Threading.Tasks;
 
-namespace CompanyService.Handlers
+namespace CompanyDirectoryService.Handlers
 {
     /// <summary>
     /// This is the handler class for the account created event. 

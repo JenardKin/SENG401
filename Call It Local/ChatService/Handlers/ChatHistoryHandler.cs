@@ -1,9 +1,9 @@
-﻿using CompanyDirectoryService.Database;
+﻿using ChatService.Database;
+
 
 using Messages.ServiceBusRequest;
-using Messages.ServiceBusRequest.CompanyDirectory.Requests;
-using Messages.ServiceBusRequest.CompanyDirectory.Responses;
-using Messages.ServiceBusRequest.Echo.Requests;
+using Messages.ServiceBusRequest.Chat.Requests;
+using Messages.ServiceBusRequest.Chat.Responses;
 
 using NServiceBus;
 using NServiceBus.Logging;
@@ -11,14 +11,13 @@ using NServiceBus.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace CompanyDirectoryService.Handlers
+namespace ChatService.Handlers
 {
-    
     /// <summary>
-    /// This is the handler class for the company display request
+    /// This is the handler class for the chat history request 
     /// This class is created and its methods called by the NServiceBus framework
     /// </summary>
-    public class DisplayCompanyHandler : IHandleMessages<GetCompanyInfoRequest>
+    public class ChatHistoryHandler : IHandleMessages<GetChatHistoryRequest>
     {
         /// <summary>
         /// This is a class provided by NServiceBus. Its main purpose is to be use log.Info() instead of Messages.Debug.consoleMsg().
@@ -26,17 +25,18 @@ namespace CompanyDirectoryService.Handlers
         /// </summary>
         /// It is important that all logger member variables be static, because NServiceBus tutorials warn that GetLogger<>()
         /// is an expensive call, and there is no need to instantiate a new logger every time a handler is created.
-        static ILog log = LogManager.GetLogger<DisplayCompanyHandler>();
+        static ILog log = LogManager.GetLogger<ChatHistoryHandler>();
 
         /// <summary>
-        /// Searches the db, and returns it's result back to the calling endpoint.
+        /// Searches the db for the chat history, and returns its results back to the calling endpoint.
         /// </summary>
-        /// <param name="message">Information about the echo</param>
+        /// <param name="message">Information about the chat histroy</param>
         /// <param name="context">Used to access information regarding the endpoints used for this handle</param>
         /// <returns>The response to be sent back to the calling process</returns>
-        public Task Handle(GetCompanyInfoRequest request, IMessageHandlerContext context)
+        public Task Handle(GetChatHistoryRequest request, IMessageHandlerContext context)
         {
-            GetCompanyInfoResponse response = CompanyDirectoryServiceDatabase.getInstance().getCompanyInfo(request.companyInfo.companyName);
+            //Save the echo to the database
+            GetChatHistoryResponse response = ChatServiceDatabase.getInstance().getChatHistory(request.getCommand.history);
 
             //The context is used to give a reply back to the endpoint that sent the request
             return context.Reply(response);
