@@ -40,34 +40,35 @@ namespace ChatService.Database
         {
             bool result = false;
             GetChatHistory historyResponse = new GetChatHistory();
+            ChatHistory chatHistory = new ChatHistory()
+            {
+                user1 = history.user1,
+                user2 = history.user2
+            };
             string responseString = "";
             if (openConnection() == true)
             {
                 string query = @"SELECT * FROM chathistory WHERE (sender='" + history.user1 + @"' AND receiver='" + history.user2 + @"') OR " +
-                               @"(sender='" + history.user2 + @"' AND receiver='" + history.user2 + @"')";
+                               @"(sender='" + history.user2 + @"' AND receiver='" + history.user1 + @"')";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
 
                 List<ChatMessage> messages = new List<ChatMessage>();
-                if (reader.Read())
+                while (reader.Read())
+                {
+                    ChatMessage message = new ChatMessage
+                    {
+                        sender = reader.GetString("sender"),
+                        receiver = reader.GetString("receiver"),
+                        unix_timestamp = reader.GetInt32("timestamp"),
+                        messageContents = reader.GetString("message")
+                    };
+                    messages.Add(message);
+                }
+                if(messages.Count != 0)
                 {
                     result = true;
-                    ChatMessage message = new ChatMessage();
-                    message.sender = reader.GetString("sender");
-                    message.receiver = reader.GetString("receiver");
-                    message.unix_timestamp = reader.GetInt32("timestamp");
-                    message.messageContents = reader.GetString("message");
-                    messages.Add(message);
-                    while (reader.Read())
-                    {
-                        message.sender = reader.GetString("sender");
-                        message.receiver = reader.GetString("receiver");
-                        message.unix_timestamp = reader.GetInt32("timestamp");
-                        message.messageContents = reader.GetString("message");
-                        messages.Add(message);
-                    }
-                    history.messages = messages;
-                    historyResponse.history = history;
+                    chatHistory.messages = messages;
                 }
                 else
                 {
@@ -81,6 +82,7 @@ namespace ChatService.Database
                 responseString = "Unable to connect to database";
                 Debug.consoleMsg("Unable to connect to database");
             }
+            historyResponse.history = chatHistory;
             return new GetChatHistoryResponse(result, responseString, historyResponse);
         }
 
@@ -124,13 +126,12 @@ namespace ChatService.Database
                 if(contacts.Count != 0)
                 {
                     result = true;
+                    contactResponse.contactNames = contacts;
                 }
                 else
                 {
                     responseString = "No contacts for '" + username + "'";
                 }
-
-                reader.Close();
                 closeConnection();
             }
             else

@@ -41,7 +41,7 @@ function sendMessage() {
  * This function adds the given text to the user and indicates the sender of the text.
  * @param {string} text - The content of the message
  * @param {string} sender - The username of the sender. If it is "You" it will be a different colour.
- */s
+ */
 function addTextToChatBox(text, sender) {
     var newMessageHtml =
         "<p class='message'>" +
@@ -51,7 +51,7 @@ function addTextToChatBox(text, sender) {
         newMessageHtml += ">You: ";
     }
     else {
-        newMessageHtml += " style='color:aqua;'>" + sender + ": ";
+        newMessageHtml += " style='color:teal;'>" + sender + ": ";
     }
 
     newMessageHtml += "</span>" + text + "</p>";
