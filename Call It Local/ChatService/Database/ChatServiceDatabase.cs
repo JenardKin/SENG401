@@ -87,7 +87,11 @@ namespace ChatService.Database
         public GetChatContactsResponse getChatContacts(string username)
         {
             bool result = false;
-            GetChatContacts contactResponse = new GetChatContacts();
+            GetChatContacts contactResponse = new GetChatContacts()
+            {
+                usersname = username,
+                contactNames = new List<string>()
+            };
             string responseString = "";
             if (openConnection() == true)
             {
@@ -96,32 +100,36 @@ namespace ChatService.Database
                 MySqlDataReader reader = command.ExecuteReader();
 
                 List<string> contacts = new List<string>();
-                if (reader.Read())
+                while (reader.Read())
+                {
+                    contacts.Add(reader.GetString("receiver"));
+                }
+                reader.Close();
+
+                query = @"SELECT DISTINCT sender FROM chathistory WHERE receiver='" + username + @"'";
+                command = new MySqlCommand(query, connection);
+                reader = command.ExecuteReader();
+
+                string contact;
+                while (reader.Read())
+                {
+                    contact = reader.GetString("sender");
+                    if (!contacts.Contains(contact))
+                    {
+                        contacts.Add(contact);
+                    }
+                }
+                reader.Close();
+
+                if(contacts.Count != 0)
                 {
                     result = true;
-                    contacts.Add(reader.GetString("receiver"));
-                    while (reader.Read())
-                    {
-                        contacts.Add(reader.GetString("receiver"));
-                    }
-                    reader.Close();
-                    query = @"SELECT DISTINCT sender FROM chathistory WHERE receiver='" + username + @"'";
-                    command = new MySqlCommand(query, connection);
-                    reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        string contact = reader.GetString("sender");
-                        if (!contacts.Contains(contact))
-                        {
-                            contacts.Add(contact);
-                        }
-                    }
-                    contactResponse.contactNames = contacts;
                 }
                 else
                 {
-                    responseString = "No contacts for '" + username;
+                    responseString = "No contacts for '" + username + "'";
                 }
+
                 reader.Close();
                 closeConnection();
             }
