@@ -696,3 +696,31 @@ net localgroup "Performance Monitor Users" "DESKTOP-L55P7N6\Nate" /add
 2018-04-01 20:35:17.225 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
 2018-04-01 20:35:17.532 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
 2018-04-01 20:35:17.839 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
+2018-04-01 20:43:56.165 INFO  DefaultFactory Logging to 'C:\Users\Nate\Desktop\SENG401\Call It Local\ChatService\bin\Debug\' with level Info
+2018-04-01 20:43:56.482 INFO  NServiceBus.LicenseManager No valid license could be found, falling back to trial license with start date '3/3/2018'
+
+2018-04-01 20:43:56.499 WARN  NServiceBus.LicenseManager Trial for the Particular Service Platform has expired.
+2018-04-01 20:44:00.771 INFO  NServiceBus.PerformanceMonitorUsersInstaller Did not attempt to add user 'DESKTOP-L55P7N6\Nate' to group 'Performance Monitor Users' since the process is not running with elevated privileges. Processing will continue. To manually perform this action, run the following command from an admin console:
+net localgroup "Performance Monitor Users" "DESKTOP-L55P7N6\Nate" /add
+2018-04-01 20:44:00.856 WARN  NServiceBus.QueuePermissions Queue [private$\error] is running with [Everyone] with AccessRights set to [GenericWrite]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:00.872 WARN  NServiceBus.QueuePermissions Queue [private$\error] is running with [NT AUTHORITY\ANONYMOUS LOGON] with AccessRights set to [WriteMessage]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:00.891 WARN  NServiceBus.QueuePermissions Queue [private$\Chat.Timeouts] is running with [Everyone] with AccessRights set to [GenericWrite]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:00.905 WARN  NServiceBus.QueuePermissions Queue [private$\Chat.Timeouts] is running with [NT AUTHORITY\ANONYMOUS LOGON] with AccessRights set to [WriteMessage]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:00.917 WARN  NServiceBus.QueuePermissions Queue [private$\Chat.TimeoutsDispatcher] is running with [Everyone] with AccessRights set to [GenericWrite]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:00.927 WARN  NServiceBus.QueuePermissions Queue [private$\Chat.TimeoutsDispatcher] is running with [NT AUTHORITY\ANONYMOUS LOGON] with AccessRights set to [WriteMessage]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:00.941 WARN  NServiceBus.QueuePermissions Queue [private$\Chat.Retries] is running with [Everyone] with AccessRights set to [GenericWrite]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:00.954 WARN  NServiceBus.QueuePermissions Queue [private$\Chat.Retries] is running with [NT AUTHORITY\ANONYMOUS LOGON] with AccessRights set to [WriteMessage]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:00.973 WARN  NServiceBus.QueuePermissions Queue [private$\Chat] is running with [Everyone] with AccessRights set to [GenericWrite]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:00.985 WARN  NServiceBus.QueuePermissions Queue [private$\Chat] is running with [NT AUTHORITY\ANONYMOUS LOGON] with AccessRights set to [WriteMessage]. Consider setting appropriate permissions, if required by the organization. For more information, consult the documentation.
+2018-04-01 20:44:01.009 INFO  NServiceBus.PerformanceCounterHelper NServiceBus performance counter for '# of msgs pulled from the input queue /sec' is not set up correctly. To rectify this problem, consult the NServiceBus performance counters documentation.
+2018-04-01 20:44:01.024 INFO  NServiceBus.PerformanceCounterHelper NServiceBus performance counter for '# of msgs successfully processed / sec' is not set up correctly. To rectify this problem, consult the NServiceBus performance counters documentation.
+2018-04-01 20:44:01.052 INFO  NServiceBus.PerformanceCounterHelper NServiceBus performance counter for '# of msgs failures / sec' is not set up correctly. To rectify this problem, consult the NServiceBus performance counters documentation.
+2018-04-01 20:44:11.990 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
+2018-04-01 20:44:12.636 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
+2018-04-01 20:44:13.989 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
+2018-04-01 20:44:17.020 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
+2018-04-01 20:44:18.735 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
+2018-04-01 20:44:19.107 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
+2018-04-01 20:44:20.981 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
+2018-04-01 20:44:21.034 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
+2018-04-01 20:44:22.008 ERROR NServiceBus.LogErrorOnInvalidLicenseBehavior Your license has expired
