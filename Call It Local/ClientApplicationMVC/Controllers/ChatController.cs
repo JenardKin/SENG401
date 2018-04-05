@@ -161,7 +161,7 @@ namespace ClientApplicationMVC.Controllers
                 {
                     newConvoHtml +=
                         "<p class=\"message\">" +
-                            "<span class=\"username\" style=\"color:aqua;\">" + msg.sender + ": </span>" +
+                            "<span class=\"username\" style=\"color:teal;\">" + msg.sender + ": </span>" +
                             msg.messageContents +
                         "</p>";
                 }
