@@ -17,6 +17,21 @@
     <br />
 }
 
+@if(ViewBag.WeatherInfo != null)
+{
+    <div style="border-top:1px solid lightgrey; border-bottom:1px solid lightgrey">
+        <h3 style="color:teal">@ViewBag.WeatherInfo.locationName</h3>
+        <h1>@ViewBag.WeatherInfo.temperatureMetric &deg;</h1>
+        <p>RealFeel&reg; @ViewBag.WeatherInfo.realFeelTemperatureMetric &deg;</p>
+        <h3>@ViewBag.WeatherInfo.weatherText</h3>
+    </div>
+}
+else
+{
+    <p style="color:red">Weather info for location could not be found</p>
+}
+<br/>
+
 <div style="height:100px">
     <h4>Start a conversation with @ViewBag.CompanyName</h4>
     <div style="width:400px; float:left">
@@ -28,31 +43,32 @@
 </div>
 <br /><br />
 
-@using (Html.BeginForm("SubmitReview", "CompanyListings", FormMethod.Get))
-{
-    <h4>Review @ViewBag.CompanyName</h4>
-    <input type="hidden" name="companyName" value="@ViewBag.CompanyName" />
-    <p>
-        <textarea name="review" placeholder="Enter your review here." rows="4"></textarea><br /><br />
-        Stars
-        <div>
-            <input type="radio" name="stars" value="1">1
-            <input type="radio" name="stars" value="2">2
-            <input type="radio" name="stars" value="3" checked>3
-            <input type="radio" name="stars" value="4">4
-            <input type="radio" name="stars" value="5">5
-        </div>
-    </p>
-    <input type="submit" value="Save Review for @ViewBag.CompanyName" />
-}
-<h4>@ViewBag.ResponseStatus</h4>
+<div style="border-top:1px solid lightgrey; border-bottom:1px solid lightgrey">
+    @using (Html.BeginForm("SubmitReview", "CompanyListings", FormMethod.Get))
+    {
+        <h4>Review @ViewBag.CompanyName</h4>
+        <input type="hidden" name="companyName" value="@ViewBag.CompanyName" />
+        <p>
+            <textarea name="review" placeholder="Enter your review here." rows="4"></textarea><br /><br />
+            Stars
+            <div>
+                <input type="radio" name="stars" value="1">1
+                <input type="radio" name="stars" value="2">2
+                <input type="radio" name="stars" value="3" checked>3
+                <input type="radio" name="stars" value="4">4
+                <input type="radio" name="stars" value="5">5
+            </div>
+        </p>
+        <input type="submit" value="Save Review for @ViewBag.CompanyName" />
+    }
+    <h4>@ViewBag.ResponseStatus</h4>
 
+    <br />
+
+    <!-- Getter for reviews (redirects to new page) -->
+    @using (Html.BeginForm("DisplayReviews", "CompanyListings", new { id = @ViewBag.CompanyName }, FormMethod.Get))
+    {
+        <input type="submit" value="Get Reviews for @ViewBag.CompanyName" />
+    }
 <br />
-
-<!-- Getter for reviews (redirects to new page) -->
-@using (Html.BeginForm("DisplayReviews", "CompanyListings", new { id = @ViewBag.CompanyName }, FormMethod.Get))
-{
-    <input type="submit" value="Get Reviews for @ViewBag.CompanyName" />
-}
-
-<br /><br />
+</div>

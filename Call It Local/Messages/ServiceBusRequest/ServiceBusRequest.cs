@@ -19,5 +19,5 @@ namespace Messages.ServiceBusRequest
         public Service serviceRequested;
     }
 
-    public enum Service { Authentication, Chat, CompanyDirectory, CompanyReview, Echo };
+    public enum Service { Authentication, Chat, CompanyDirectory, CompanyReview, Echo, Weather };
 }

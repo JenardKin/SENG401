@@ -52,6 +52,7 @@
     <Compile Include="DataTypes\Database\Chat\ChatMessage.cs" />
     <Compile Include="DataTypes\Database\CompanyDirectory\CompanyInstance.cs" />
     <Compile Include="DataTypes\Database\CompanyDirectory\CompanyList.cs" />
+    <Compile Include="DataTypes\Database\Weather\WeatherInfo.cs" />
     <Compile Include="DataTypes\Enums.cs" />
     <Compile Include="DataTypes\SharedData.cs" />
     <Compile Include="Debug\Debug.cs" />
@@ -81,9 +82,13 @@
     <Compile Include="ServiceBusRequest\Echo\Requests\ReverseEchoRequest.cs" />
     <Compile Include="ServiceBusRequest\ServiceBusRequest.cs" />
     <Compile Include="ServiceBusRequest\ServiceBusResponse.cs" />
+    <Compile Include="ServiceBusRequest\Weather\Requests\GetWeatherRequest.cs" />
+    <Compile Include="ServiceBusRequest\Weather\Responses\GetWeatherResponse.cs" />
+    <Compile Include="ServiceBusRequest\Weather\WeatherServiceRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

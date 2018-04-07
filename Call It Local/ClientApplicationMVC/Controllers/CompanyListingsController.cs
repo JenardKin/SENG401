@@ -3,6 +3,8 @@
 using Messages.DataTypes.Database.CompanyDirectory;
 using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
+using Messages.ServiceBusRequest.Weather.Requests;
+using Messages.ServiceBusRequest.Weather.Responses;
 
 using System;
 using System.Web.Mvc;
@@ -10,6 +12,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
 using System.Text;
+using Messages.DataTypes.Database.Weather;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -91,6 +94,25 @@ namespace ClientApplicationMVC.Controllers
             GetCompanyInfoRequest infoRequest = new GetCompanyInfoRequest(new CompanyInstance(id));
             GetCompanyInfoResponse infoResponse = connection.getCompanyInfo(infoRequest);
             ViewBag.CompanyInfo = infoResponse.companyInfo;
+
+            GetWeatherRequest weatherRequest = new GetWeatherRequest(infoResponse.companyInfo.locations[0]);
+            GetWeatherResponse weatherResponse = connection.getWeather(weatherRequest);
+            ViewBag.WeatherInfo = weatherResponse.info;
+
+            ////TEST
+            //WeatherInfo info = new WeatherInfo()
+            //{
+            //    locationName = "TEST LOCATION",
+            //    temperatureMetric = -15,
+            //    realFeelTemperatureMetric = -20,
+            //    weatherText = "Cold and colder"
+            //};
+            //ViewBag.WeatherInfo = info;
+            ////ViewBag.WeatherInfo.locationName = "TEST LOCATION";
+            ////ViewBag.WeatherInfo.temp = "-15°";
+            ////ViewBag.WeatherInfo.realFeel = "-20°";
+            ////ViewBag.WeatherInfo.weatherText = "Cold and colder";
+            ////TEST
 
             return View("DisplayCompany");
         }

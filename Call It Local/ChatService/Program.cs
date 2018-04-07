@@ -7,7 +7,7 @@ using NServiceBus;
 using System;
 using System.Threading.Tasks;
 
-namespace ShatService
+namespace ChatService
 {
     class Program
     {

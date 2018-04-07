@@ -5,6 +5,8 @@ using Messages.ServiceBusRequest.Authentication.Requests;
 using Messages.ServiceBusRequest.Echo.Requests;
 using Messages.ServiceBusRequest.Chat.Requests;
 using Messages.ServiceBusRequest.Chat.Responses;
+using Messages.ServiceBusRequest.Weather.Requests;
+using Messages.ServiceBusRequest.Weather.Responses;
 
 using System;
 using System.IO;
@@ -136,6 +138,16 @@ namespace ClientApplicationMVC.Models
         }
 
         #endregion ChatServiceMessages
+
+        #region WeatherServiceMessages
+
+        public GetWeatherResponse getWeather(GetWeatherRequest request)
+        {
+            send(request);
+            return (GetWeatherResponse)readUntilEOF();
+        }
+
+        #endregion WeatherServiceMessages
 
         #endregion ServiceBusMessages
 
