@@ -16,7 +16,7 @@ namespace WeatherService.AccuweatherAPI
         private AccuweatherAPICalls() { }
         private static AccuweatherAPICalls instance = null;
         // Key needed for the accuweather api
-        private const string apikey = "3fDiGNhFgJMJxocmDbSeVAmAuQvS8ACi";
+        private const string apikey = "xwgzAjgSBvCUHVdjTLId0fPxuifN7vrm";
 
         public static AccuweatherAPICalls getInstance()
         {

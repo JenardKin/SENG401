@@ -1,0 +1,4 @@
+﻿2018-04-10 18:48:09.112 INFO  DefaultFactory Logging to 'C:\Users\Nate\Desktop\SENG401\Call It Local\ChatService\bin\Debug\' with level Info
+2018-04-10 18:48:09.404 INFO  NServiceBus.LicenseManager No valid license could be found, falling back to trial license with start date '3/3/2018'
+
+2018-04-10 18:48:09.415 WARN  NServiceBus.LicenseManager Trial for the Particular Service Platform has expired.
